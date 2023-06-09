@@ -42,11 +42,15 @@ session.add_all([p1, p2, b1, b2, b3, b3, sh1, sh2, stock1, stock2, stock3, stock
 session.commit()
 
 
+for r in session.query(Publisher.id, Book.id_publisher).all():
+    pprint(r)
+
 pub_name = 'Питер'
 
-pprint(session.query(Publisher.name, Book.title, Shop.name, Sale.price, Sale.date_sale)
-       .join(Book).join(Stock).join(Shop).join(Sale).filter(Publisher.name == pub_name).all())
 
 
+r = session.query(Publisher.name, Book.title, Shop.name, Sale.price, Sale.date_sale).join(Book).join(Stock).join(Shop).join(Sale).filter(Publisher.name == pub_name).all()
+# rt = ",".join(r)
+pprint(r[0])
 
 session.close()
